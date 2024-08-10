@@ -1,11 +1,19 @@
 import java.util.Scanner;
 
-// Node class
+
+/** Structure for the Node Class. */
 class Node {
     int data;
     Node left;
     Node right;
 
+    /** Creates a new Node object and instantiates two
+     *  Nodes (left and right). Both nodes will be assigned
+     *  to null when new object is created via the constructor.
+     *
+     * @param data an integer passed as the data for the Node.
+     * @return New node object
+     */
     public Node(int data) {
         this.data = data;
         left = null;
@@ -13,17 +21,24 @@ class Node {
     }
 }
 
-// Tree Class
+/** Structure for the Binary Tree Class. */
 class BinaryTree {
     static Node root;
     static BinaryTree tree = null;
 
-    // Private Constructor for singleton class of tree instance
+    // Private constructor for singleton class of tree instance
     private BinaryTree() {
         root = null;
     }
 
-    // Get tree instance by only allowing one at a time
+
+    /** This method allows only one instance of BinaryTree object
+     * by retrieving the current object or creating a new object if
+     * none exist at the time.
+     *
+     * @param numArray Array of integers you want to add to tree at implementation.
+     * @return
+     */
     public static BinaryTree getTreeInstance(int[] numArray){
         if (tree == null) {
             tree = new BinaryTree();
@@ -34,18 +49,31 @@ class BinaryTree {
         return tree;
     }
 
-    // Adds a node to tree
+
+    /** Adds a node to the tree by calling the addNode function
+     * with the root as the starting Node during the iteration of
+     * the addNode function.
+     *
+     * @param data The integer you would like to add to the tree.
+     */
     public void add(int data) {
-        // Calls the addNode method using root as initial start point
         root = addNode(root, data);
     }
 
-    public Node addNode(Node node, int data) {
-            /*If root node is null, create new Node
-              If data is less than root, re-run this method with roots left child as node
-              If data is greater than root, re-run this method with roots right child as node
-              Keep re-running method until empty node is available then create new Node */
 
+    /** This method adds a new node by looking for a null object and then
+     * instantiating the new node to that null object. The null is object
+     * is found by comparing the "data" to the current "node".
+     * If data <= current node than recursively call addNode with the
+     * node left of current node. If data >= current node than recursively
+     * call addNode with node right of the current node. This repetition
+     * continues until a null object is found and then node is instantiated.
+     *
+     * @param node The node is the starting point of this method.
+     * @param data The integer you want to add to the tree.
+     * @return New node with integer as the data.
+     */
+    public Node addNode(Node node, int data) {
         if (node == null) {
             node = new Node(data);
         }else if (data <= node.data) {
@@ -56,7 +84,17 @@ class BinaryTree {
         return node;
     }
 
-    // Deletes a node
+
+    /** This method deletes the node that holds the "data" value in
+     * the parameter. The method recursively locates the node by checking
+     * if the data is less than or greater than the current iterations node.
+     * The node is swapped with the next lowest number in the subtree and
+     * then that node is deleted from the list.
+     *
+     * @param node The starting point of iteration process.
+     * @param data The node with the assigned data you want deleted.
+     * @return An updated subtree of nodes within the tree.
+     */
     public Node deleteNode(Node node, int data) {
         // Check if node is null
         if (node == null) {
@@ -96,6 +134,11 @@ class BinaryTree {
     }
 
 
+    /** This method prints the tree in order from least
+     * to greatest.
+     *
+     * @param node Tree node should be used as a starting node.
+     */
     public void inOrderPrint(Node node) {
         if (node == null) {
             return;
@@ -108,6 +151,10 @@ class BinaryTree {
         inOrderPrint(node.right);
     }
 
+    /** This method prints the tree in pre-order.
+     *
+     * @param node Tree node should be used as a starting node.
+     */
     public void preOrderPrint(Node node) {
         if (node == null) {
             return;
@@ -120,6 +167,10 @@ class BinaryTree {
         preOrderPrint(node.right);
     }
 
+    /** This method prints the tree in post-order.
+     *
+     * @param node Tree node should be used as a starting node.
+     */
     public void postOrderPrint(Node node) {
         if (node == null) {
             return;
@@ -132,14 +183,13 @@ class BinaryTree {
         System.out.print(node.data + ", ");
     }
 
-
 } // End BinaryTree Class
 
 
 // Main class
 public class Main {
 
-    // This method prints the menu options
+    /** This method prints the menu for the application. */
     public static void displayMenu() {
         System.out.println("\n\tMy Binary Tree");
         System.out.println("---------------------------------");
